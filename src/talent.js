@@ -43,35 +43,42 @@ class Talent {
     }
 
     talentRandom(include) {
-        // 1000, 100, 10, 1
-        const talentList = {};
-        for(const talentId in this.#talents) {
+        const talentList = [];
+        for (const talentId in this.#talents){
             const { id, grade, name, description } = this.#talents[talentId];
-            if(id == include) {
-                include = { grade, name, description, id };
-                continue;
-            }
-            if(!talentList[grade]) talentList[grade] = [{ grade, name, description, id }];
-            else talentList[grade].push({ grade, name, description, id });
+            talentList.push({ id, grade, name, description });
         }
+        return talentList;
 
-        return new Array(10)
-            .fill(1).map((v, i)=>{
-                if(!i && include) return include;
-                const gradeRandom = Math.random();
-                let grade;
-                if(gradeRandom>=0.111) grade = 0;
-                else if(gradeRandom>=0.011) grade = 1;
-                else if(gradeRandom>=0.001) grade = 2;
-                else grade = 3;
+        //// 1000, 100, 10, 1
+        // const talentList = {};
+        // for(const talentId in this.#talents) {
+        //     const { id, grade, name, description } = this.#talents[talentId];
+        //     if(id == include) {
+        //         include = { grade, name, description, id };
+        //         continue;
+        //     }
+        //     if(!talentList[grade]) talentList[grade] = [{ grade, name, description, id }];
+        //     else talentList[grade].push({ grade, name, description, id });
+        // }
 
-                while(talentList[grade].length == 0) grade--;
+        // return new Array(10)
+        //     .fill(1).map((v, i)=>{
+        //         if(!i && include) return include;
+        //         const gradeRandom = Math.random();
+        //         let grade;
+        //         if(gradeRandom>=0.111) grade = 0;
+        //         else if(gradeRandom>=0.011) grade = 1;
+        //         else if(gradeRandom>=0.001) grade = 2;
+        //         else grade = 3;
 
-                const length = talentList[grade].length;
+        //         while(talentList[grade].length == 0) grade--;
 
-                const random = Math.floor(Math.random()*length) % length;
-                return talentList[grade].splice(random,1)[0];
-            });
+        //         const length = talentList[grade].length;
+
+        //         const random = Math.floor(Math.random()*length) % length;
+        //         return talentList[grade].splice(random,1)[0];
+        //     });
     }
 
     allocationAddition(talents) {
